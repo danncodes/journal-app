@@ -1,21 +1,12 @@
 <template>
   <TheNavbar />
   <!-- All Entries -->
-  <main class="mt-16 p-4 min-h-screen md:w-6/12 md:mx-auto lg:w-4/12" v-if="!noEntries">
-      <TheEntryCard />
-      <TheEntryCard />
-      <TheEntryCard />
-      <TheEntryCard />
-      <TheEntryCard />
-      <TheEntryCard />
-      <TheEntryCard />
-      <TheEntryCard />
-      <TheEntryCard />
-
+  <main class="mt-16 p-4 min-h-screen md:w-6/12 md:mx-auto lg:w-4/12" v-if="postLength > 0">
+      <TheEntryCard v-for="entry in allEntries" :key="entry.entryID" :title="entry.title" :tags="entry.tags" :emotion="entry.emotion.split(' ')[0]" />
   </main>
 
   <!-- No Entries -->
-    <main class="flex flex-col justify-center items-center min-h-screen" v-if="noEntries">
+    <main class="flex flex-col justify-center items-center min-h-screen" v-if="postLength === 0">
         <h1 class="font-medium text-indigo-700 text-2xl">You Have no Entries</h1>
         <img src="../assets/noentries.svg" alt="" class="h-96">
         <a href="#">
@@ -41,7 +32,36 @@ export default {
     components: { TheButton, TheButton2, TheModal, TheNavbar, TheLogo, TheFixedAddEntryBtn, TheEntryCard, TheRisingCircles },
     data(){
         return {
-            noEntries: false
+            allEntries: undefined,
+            postLength: 0
+        }
+    },
+    computed: {
+        userID(){
+            return this.$store.state.userID
+        }
+    },
+    beforeMount(){
+        this.fetchPosts()
+    },
+    methods: {
+        async fetchPosts(){
+            try{
+                const requestURL = `/api/users/${this.userID}/entries`
+                const res = await fetch(requestURL, {
+                    headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+                }
+                })
+                const data = await res.json()
+                this.allEntries = data
+                this.postLength = this.allEntries.length
+                console.log(data)
+            }
+            catch (err){
+            this.postLength = 0
+            }
         }
     }
 }

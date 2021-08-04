@@ -3,10 +3,9 @@
   transform hover:translate-x-4 cursor-pointer">
     <img src="../assets/entryimg.jpg" alt="" class="h-full mr-2">
     <figcaption class="w-full m-2 relative">
-        <h1 class="font-medium">Entry Title</h1>
-        <p class="text-xs">Camping, Life, Happy</p>
-
-        <p class="text-lg">😀</p>
+        <h1 class="font-medium">{{ title }}</h1>
+        <p class="text-xs">{{ tags }}</p>
+        <p class="text-lg">{{ emotion }}</p>
         <i class="far fa-edit text-indigo-600 hover:text-indigo-800 cursor-pointer absolute right-2 bottom-2"></i>
         <i class="fas fa-ban text-indigo-600 hover:text-indigo-800 cursor-pointer absolute right-2 top-2"></i>
     </figcaption>
@@ -15,6 +14,7 @@
 
 <script>
 export default {
+  props: ["title", "tags", "emotion"]
 
 }
 </script>

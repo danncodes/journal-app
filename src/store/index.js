@@ -9,6 +9,7 @@ export default createStore({
     firstname: "",
     lastname: "",
     phone: "",
+    selectedEmotion: undefined,
     userID: localStorage.getItem("jwt") ? JSON.parse(atob(localStorage.getItem("jwt").split('.')[1])).userId : undefined,
   },
   mutations: {
@@ -45,6 +46,9 @@ export default createStore({
       state.userID = userID
       console.log("UserIf Stored", state.userID)
     },
+    selectEmotion(state, emotion){
+      state.selectedEmotion = emotion
+    }
 
   },
   actions: {

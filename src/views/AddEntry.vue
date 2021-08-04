@@ -69,9 +69,11 @@ export default {
                     
                 }
             })
-            this.selectedEmotion = e.target
-            this.selectedEmotion.classList.add('bg-indigo-600')
-            this.selectedEmotion.classList.add('text-white')
+            this.selectedEmotion = e.target.children[0].innerText + " " + e.target.children[1].innerText
+            e.target.classList.add('bg-indigo-600')
+            e.target.classList.add('text-white')
+
+            this.$store.commit('selectEmotion',this.selectedEmotion)
         }
      }
 

@@ -113,7 +113,7 @@ router.get("/users/entries", async(req,res) => {
     }
   });
 
-  publicPosts.length === 0 ? res.sendStatus(404) : res.json(discoveryPost)
+  publicPosts.length === 0 ? res.sendStatus(404) : res.json(publicPosts)
 })
 
 
