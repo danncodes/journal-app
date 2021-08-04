@@ -10,7 +10,7 @@
   <h1 class="mb-8 font-medium text-3xl text-indigo-600 lg:text-white absolute top-8 left-8">Login</h1>
   <img src="../assets/lock.svg" alt="" class="absolute top-2 right-2 h-48">
 
-  <TheInputField label="Email" type="email" placeholder="mail@gmail.com" class="md:mx-2"/>
+  <TheInputField label="Username" type="text" placeholder="JohnDoe91" class="md:mx-2"/>
   <TheInputField label="Password" type="password" class="md:mx-2" />
 
   <div class="w-full md:flex md:justify-center">

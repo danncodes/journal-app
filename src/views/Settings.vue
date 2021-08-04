@@ -11,7 +11,7 @@
   <h1 class="mb-8 font-medium text-3xl text-indigo-600 lg:text-white absolute top-20 left-8">User Settings</h1>
   <img src="../assets/settings.svg" alt="" class="absolute top-20 right-2 h-48">
 
-  <TheInputField label="Email" type="email" placeholder="mail@gmail.com" class="md:mx-2"/>
+  <TheInputField label="Username" type="text" placeholder="JohnDoe91" class="md:mx-2"/>
 
   <div class="md:flex md:justify-between">
     <TheInputField label="Password" type="password" class="md:w-6/12 md:mx-2" />
