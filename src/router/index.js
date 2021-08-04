@@ -1,5 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Signup from '../views/Signup.vue'
+import Login from '../views/Login.vue'
+import Dashboard from '../views/Dashboard.vue'
+import AddEntry from '../views/AddEntry.vue'
+import Settings from '../views/Settings.vue'
+import Error404 from '../views/Error404.vue'
 
 const routes = [
   {
@@ -8,13 +14,40 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/signup',
+    name: 'Signup',
+    component: Signup
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
+  },
+  {
+    path: '/addentry',
+    name: 'AddEntry',
+    component: AddEntry
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings
+  },
+  {
+    path: '/notfound',
+    name: 'Error404',
+    component: Error404
+  },
+  {
+    path: "/:catchAll(.*)",
+    redirect: '/notfound'
+  },
+
 ]
 
 const router = createRouter({
