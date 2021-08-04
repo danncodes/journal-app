@@ -9,6 +9,7 @@ export default createStore({
     firstname: "",
     lastname: "",
     phone: "",
+    userID: localStorage.getItem("jwt") ? JSON.parse(atob(localStorage.getItem("jwt").split('.')[1])).userId : undefined,
   },
   mutations: {
       toggleNav(state){
@@ -39,6 +40,10 @@ export default createStore({
       state.firstname = ""
       state.lastname =  ""
       state.phone = ""
+    },
+    storeUserID(state, userID){
+      state.userID = userID
+      console.log("UserIf Stored", state.userID)
     },
 
   },

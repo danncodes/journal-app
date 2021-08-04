@@ -5,10 +5,12 @@
     <img src="../assets/login.svg" alt="">
   </div>
 
-  <form class="m-4 w-10/12 md:w-8/12 lg:w-5/12 xl:w-4/12">
-
-  <h1 class="mb-8 font-medium text-3xl text-indigo-600 lg:text-white absolute top-8 left-8">Login</h1>
   <img src="../assets/lock.svg" alt="" class="absolute top-2 right-2 h-48">
+  <h1 class="mb-8 font-medium text-3xl text-indigo-600 lg:text-white absolute top-8 left-8">Login</h1>
+
+  <form class="m-4 w-10/12 md:w-8/12 lg:w-5/12 xl:w-4/12" @submit.prevent="submitForm" ref="form">
+
+  <p class="text-xs text-center text-red-600" v-if="loginError">Incorrect Username or Password</p>
 
   <TheInputField label="Username" type="text" placeholder="JohnDoe91" class="md:mx-2"/>
   <TheInputField label="Password" type="password" class="md:mx-2" />
@@ -21,18 +23,17 @@
   </a>
 
   </form>
-
-<ul class="circles">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
+  <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
   </ul>
 </div>
 </template>
@@ -42,7 +43,49 @@ import TheInputField from '@/components/TheInputField.vue'
 import TheButton from '@/components/TheButton.vue'
 
 export default {
-  components: { TheInputField, TheButton }
+  components: { TheInputField, TheButton },
+  data(){
+    return {
+      loginError: false
+    }
+  },
+  computed:{
+    username(){
+      return this.$store.state.username
+    },
+    password(){
+      return this.$store.state.password
+    },
+  },
+  methods: {
+    async submitForm(){
+      try{
+          const res = await fetch("/api/signIn", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'},
+          body: JSON.stringify({username: this.username, password: this.password})
+          })
+          const jwtToken = await res.json()
+          localStorage.setItem("jwt", jwtToken.token)
+          const userId = JSON.parse(atob(localStorage.getItem("jwt").split('.')[1])).userId
+          this.storeUserID(userId)
+          this.loginError = false 
+          window.location.href = "/dashboard";
+      }
+      catch (err){
+        this.loginError = true 
+        this.$refs.form.classList.add('login-error')
+        setTimeout( () => {
+          this.$refs.form.classList.remove('login-error')
+        },2000)
+      }
+
+    },
+    storeUserID(userId){
+      this.$store.commit("storeUserID", userId)
+    }
+  }
 
 }
 </script>
@@ -156,6 +199,41 @@ export default {
         transform: translateY(-1000px) rotate(720deg);
         opacity: 0;
         border-radius: 50%;
+    }
+  }
+
+   .login-error{
+    animation: shake 1s ease-in-out;
+  }
+
+  @keyframes shake {
+ 
+    0%{
+        transform: translateX(-16px);
+    }
+
+    20%{
+        transform: translateX(16px);
+    }
+
+    40%{
+        transform: translateX(-8px);
+    }
+    
+    60%{
+        transform: translateX(8px);
+    }
+
+    70%{
+        transform: translateX(-2px);
+    }
+
+    80%{
+        transform: translateX(2px);
+    }
+ 
+    100%{
+        transform: translateY(0px)
     }
   }
 
