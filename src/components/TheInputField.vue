@@ -32,6 +32,12 @@ export default {
             case "Phone":
                 this.$store.commit("updatePhone", this.$refs.inputField.value)
                 break;
+            case "Title":
+                this.$store.commit("updateTitle", this.$refs.inputField.value)
+                break;
+            case "Tags":
+                this.$store.commit("updateTags", this.$refs.inputField.value)
+                break;
             default:
                 // code block
             }

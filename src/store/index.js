@@ -9,7 +9,11 @@ export default createStore({
     firstname: "",
     lastname: "",
     phone: "",
+    title: "",
+    tags: "",
+    textArea: "",
     selectedEmotion: undefined,
+    checkbox: false,
     userID: localStorage.getItem("jwt") ? JSON.parse(atob(localStorage.getItem("jwt").split('.')[1])).userId : undefined,
   },
   mutations: {
@@ -34,6 +38,15 @@ export default createStore({
     updatePhone(state, inputValue){
       state.phone =  inputValue
     },
+    updateTitle(state, inputValue){
+      state.title =  inputValue
+    },
+    updateTags(state, inputValue){
+      state.tags =  inputValue
+    },
+    updateTextArea(state, textAreaValue){
+      state.textArea =  textAreaValue
+    },
     clearUserState(state){
       state.username = ""
       state.password = ""
@@ -41,13 +54,20 @@ export default createStore({
       state.firstname = ""
       state.lastname =  ""
       state.phone = ""
+      state.title =  ""
+      state.tags = ""
+      state.textArea = ""
+      state.selectedEmotion = undefined
+      state.checkbox = false
     },
     storeUserID(state, userID){
       state.userID = userID
-      console.log("UserIf Stored", state.userID)
     },
     selectEmotion(state, emotion){
       state.selectedEmotion = emotion
+    },
+    toggleCheckbox(state, value){
+      state.checkbox = value
     }
 
   },
