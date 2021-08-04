@@ -5,17 +5,20 @@
     <img src="../assets/loginimg2.svg" alt="">
   </div>
 
-  <form class="m-4 w-10/12 md:w-8/12 lg:w-5/12 xl:w-4/12">
+  <!-- Before Signup -->
+  <form v-if="!userRegistered" class="m-4 w-10/12 md:w-8/12 lg:w-5/12 xl:w-4/12" @submit.prevent="submitForm">
 
   <h1 class="mb-8 font-medium text-3xl text-indigo-600 lg:text-white absolute top-8 left-8">Signup</h1>
-  <img src="../assets/loginmob.svg" alt="" class="absolute top-2 right-2 h-48">
+  <img src="../assets/loginmob.svg" alt="" class="absolute top-2 right-2 h-48 opacity-20 sm:opacity-100">
 
   <TheInputField label="Username" type="text" placeholder="JohnDoe91" class="md:mx-2"/>
+  <p class="text-xs text-center text-red-600" v-if="usernameTaken">Sorry, Username Already Taken</p>
 
-  <div class="md:flex md:justify-between">
+  <div class="md:flex md:justify-between" ref="passwordsContainer">
     <TheInputField label="Password" type="password" class="md:w-6/12 md:mx-2" />
     <TheInputField label="Confirm Password" type="password" class="md:w-6/12 md:mx-2" />
   </div>
+  <p class="text-xs text-center text-red-600" v-if="!passwordMatch">Passwords Don't Match</p>
 
   <div class="md:flex md:justify-between">
     <TheInputField label="Firstname" type="text" placeholder="John" class="md:w-6/12 md:mx-2"/>
@@ -32,6 +35,16 @@
   </a>
 
   </form>
+
+  <!-- After Signup -->
+  <div v-if="userRegistered" class="flex flex-col justify-center items-center m-4 w-10/12 md:w-8/12 lg:w-5/12 xl:w-4/12">
+    <h1 class="text-2xl mb-2">Sign Up Successful</h1>
+    <p>Login to start your Journey</p>
+    <img src="../assets/journal.svg" alt="" >
+    <a href="/login">
+      <TheButton btnText ="Login" class="h-full w-full"/>
+    </a>
+  </div>
 
 <ul class="circles">
       <li></li>
@@ -52,7 +65,71 @@
 import TheInputField from '@/components/TheInputField.vue'
 import TheButton from '@/components/TheButton.vue'
 export default {
-  components: { TheInputField, TheButton }
+  components: { TheInputField, TheButton },
+  data(){
+    return {
+      passwordMatch: true,
+      userRegistered: false,
+      usernameTaken: false
+    }
+  },
+  computed: {
+    username(){
+      return this.$store.state.username
+    },
+    password(){
+      return this.$store.state.password
+    },
+    confirmPassword(){
+      return this.$store.state.confirmPassword
+    },
+    firstname(){
+      return this.$store.state.firstname
+    },
+    lastname(){
+      return this.$store.state.lastname
+    },
+    phone(){
+      return this.$store.state.phone
+    }
+  },
+  methods: {
+    async submitForm(){
+      if(this.password !== this.confirmPassword){
+        this.$refs.passwordsContainer.classList.add('no-match')
+        this.passwordMatch = false
+        setTimeout( () => {
+          this.$refs.passwordsContainer.classList.remove('no-match')
+        }, 2000)
+        return
+      }
+      this.passwordMatch = true
+
+      try{
+         const res = await fetch("/api/users", {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({username: this.username, password: this.password, firstname: this.firstname,
+           lastname: this.lastname, phone: this.phone})
+          })
+          
+          if(res.status === 201){
+            this.userRegistered = true
+            this.usernameTaken = false
+            this.$store.commit("clearUserState")
+          } 
+          else if(res.status === 401){
+            this.usernameTaken = true
+          }
+      }
+      catch (err){
+        console.log("Error Logging In")
+      }
+
+      
+      
+    }
+  }
 
 }
 </script>
@@ -166,6 +243,41 @@ export default {
         transform: translateY(-1000px) rotate(720deg);
         opacity: 0;
         border-radius: 50%;
+    }
+  }
+
+  .no-match{
+    animation: shake 1s ease-in-out;
+  }
+
+  @keyframes shake {
+ 
+    0%{
+        transform: translateX(-16px);
+    }
+
+    20%{
+        transform: translateX(16px);
+    }
+
+    40%{
+        transform: translateX(-8px);
+    }
+    
+    60%{
+        transform: translateX(8px);
+    }
+
+    70%{
+        transform: translateX(-2px);
+    }
+
+    80%{
+        transform: translateX(2px);
+    }
+ 
+    100%{
+        transform: translateY(0px)
     }
   }
 
