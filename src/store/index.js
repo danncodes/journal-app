@@ -3,6 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     showNav: false,
+    showModal: false,
     username: "",
     password: "",
     confirmPassword: "",
@@ -14,6 +15,7 @@ export default createStore({
     textArea: "",
     selectedEmotion: undefined,
     checkbox: false,
+    ModalentryId: undefined,
     userID: localStorage.getItem("jwt") ? JSON.parse(atob(localStorage.getItem("jwt").split('.')[1])).userId : undefined,
   },
   mutations: {
@@ -68,8 +70,15 @@ export default createStore({
     },
     toggleCheckbox(state, value){
       state.checkbox = value
+    },
+    displayModal(state, entryId){
+      state.showModal = true
+      state.ModalentryId = entryId
+    },
+    closeModal(state){
+      state.showModal = false
+      state.ModalentryId = undefined
     }
-
   },
   actions: {
   },

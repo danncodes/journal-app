@@ -1,8 +1,8 @@
 <template>
   <TheNavbar />
   <!-- All Entries -->
-  <main class="mt-16 p-4 min-h-screen md:w-6/12 md:mx-auto lg:w-4/12" v-if="postLength > 0">
-      <TheEntryCard v-for="entry in allEntries" :key="entry.entryID" :title="entry.title" :tags="entry.tags" :emotion="entry.emotion.split(' ')[0]" />
+  <main class="mt-16 p-4 min-h-screen md:w-8/12 sm:mx-auto lg:w-6/12 sm:w-10/12 xl:w-4/12" v-if="postLength > 0">
+      <TheEntryCard v-for="entry in allEntries" :key="entry.entryID" :title="entry.title" :tags="entry.tags" :emotion="entry.emotion.split(' ')[0]" @click="displayModal(entry.entryID)"/>
   </main>
 
   <!-- No Entries -->
@@ -15,6 +15,7 @@
         <TheRisingCircles />
     </main>
     <TheFixedAddEntryBtn />
+    <TheModal v-if="showModal"/>
 </template>
 
 <script>
@@ -39,12 +40,18 @@ export default {
     computed: {
         userID(){
             return this.$store.state.userID
+        },
+        showModal(){
+            return this.$store.state.showModal
         }
     },
     beforeMount(){
         this.fetchPosts()
     },
     methods: {
+        displayModal(id){
+            this.$store.commit("displayModal", id)
+        },
         async fetchPosts(){
             try{
                 const requestURL = `/api/users/${this.userID}/entries`
@@ -57,7 +64,6 @@ export default {
                 const data = await res.json()
                 this.allEntries = data
                 this.postLength = this.allEntries.length
-                console.log(data)
             }
             catch (err){
             this.postLength = 0
