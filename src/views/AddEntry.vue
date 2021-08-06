@@ -99,7 +99,6 @@ export default {
             this.$store.commit('selectEmotion',this.selectedEmotion)
         },
         async submitEntry(){
-            console.log(this.userID)
             if(!this.selectedEmotion){
                 this.submitError = true
                 this.$refs.emotionContainer.classList.add('error')

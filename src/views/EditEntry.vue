@@ -120,8 +120,6 @@ export default {
             }
             })
             this.postData = await res.json()
-            console.log(this.postData)
-            console.log(this.postData.emotion)
             }
             catch (err){
             window.location.href = "/notfound";

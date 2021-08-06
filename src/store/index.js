@@ -4,6 +4,7 @@ export default createStore({
   state: {
     showNav: false,
     showModal: false,
+    showDeleteModal: false,
     username: "",
     password: "",
     confirmPassword: "",
@@ -16,6 +17,7 @@ export default createStore({
     selectedEmotion: undefined,
     checkbox: false,
     ModalentryId: undefined,
+    deleteModalEntryID: undefined,
     userID: localStorage.getItem("jwt") ? JSON.parse(atob(localStorage.getItem("jwt").split('.')[1])).userId : undefined,
   },
   mutations: {
@@ -78,6 +80,15 @@ export default createStore({
     closeModal(state){
       state.showModal = false
       state.ModalentryId = undefined
+    },
+    displayDeleteModal(state, entryID){
+      state.showDeleteModal = true
+      state.deleteModalEntryID = entryID
+    },
+    closeDeleteModal(state){
+      state.deleteModalEntryID = undefined
+      state.showDeleteModal = false
+
     }
   },
   actions: {

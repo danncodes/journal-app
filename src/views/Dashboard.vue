@@ -2,7 +2,7 @@
   <TheNavbar />
   <!-- All Entries -->
   <main class="mt-16 p-4 min-h-screen md:w-8/12 sm:mx-auto lg:w-6/12 sm:w-10/12 xl:w-4/12" v-if="postLength > 0">
-      <TheEntryCard v-for="entry in allEntries" :key="entry.entryID" :title="entry.title" :tags="entry.tags" :emotion="entry.emotion.split(' ')[0]" @click="displayModal(entry.entryID)"/>
+      <TheEntryCard v-for="entry in allEntries" :key="entry.entryID" :title="entry.title" :tags="entry.tags" :emotion="entry.emotion.split(' ')[0]" :entryID="entry.entryID"/>
   </main>
 
   <!-- No Entries -->
@@ -49,9 +49,6 @@ export default {
         this.fetchPosts()
     },
     methods: {
-        displayModal(id){
-            this.$store.commit("displayModal", id)
-        },
         async fetchPosts(){
             try{
                 const requestURL = `/api/users/${this.userID}/entries`

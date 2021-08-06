@@ -28,7 +28,7 @@
             <a :href="'/editentry/' + postData.entryID" class="flex justify-center items-center">
               <i class="far fa-edit text-indigo-600 hover:text-indigo-800 mx-1 cursor-pointer md:text-2xl lg:text-3xl"></i>
             </a>
-            <i class="fas fa-ban text-indigo-600 hover:text-indigo-800 mx-1 cursor-pointer md:text-2xl lg:text-3xl"></i>
+            <i class="fas fa-ban text-indigo-600 hover:text-indigo-800 mx-1 cursor-pointer md:text-2xl lg:text-3xl" @click="displayDeleteModal(postData.entryID)"></i>
           </div>
         </div>
 
@@ -59,6 +59,9 @@ export default {
   methods: {
     closeModal(){
       this.$store.commit("closeModal")
+    },
+    displayDeleteModal(entryID){
+      this.$store.commit('displayDeleteModal', entryID)
     },
     async getPost(){
         try{

@@ -123,7 +123,6 @@ export default {
           }
       }
       catch (err){
-        console.log("Error Logging In")
       }
 
       
