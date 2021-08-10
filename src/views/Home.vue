@@ -2,8 +2,8 @@
 <!-- Alt Header/Nav -->
   <header class="h-16 w-full shadow p-2 sm:px-10 flex justify-between items-center">
     <TheLogo />
-    <a href="/signup">
-      <TheButton2 btnText="Register"/>
+    <a href="/login">
+      <TheButton btnText="Login"/>
     </a>
   </header>
   <!-- Main Section -->

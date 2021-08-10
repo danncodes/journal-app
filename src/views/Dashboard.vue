@@ -9,7 +9,7 @@
     <main class="flex flex-col justify-center items-center min-h-screen" v-if="postLength === 0">
         <h1 class="font-medium text-indigo-700 text-2xl">You Have no Entries</h1>
         <img src="../assets/noentries.svg" alt="" class="h-96">
-        <a href="#">
+        <a href="/addentry">
             <TheButton btnText="Add New Entry"/>
         </a>
         <TheRisingCircles />

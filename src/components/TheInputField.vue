@@ -4,13 +4,13 @@
       <input
         class="w-full text-base px-4 py-2 border-b transform focus:translate-x-3.5
         transition duration-300  border border-gray-300 focus:outline-none rounded focus:border-indigo-500"
-        :type="type" :placeholder="placeholder" required @input="updateInput" ref="inputField">
+        :type="type" :placeholder="placeholder" :value="value" required @input="updateInput" ref="inputField">
     </div>
 </template>
 
 <script>
 export default {
-    props: ["label", "type", "placeholder"],
+    props: ["label", "type", "placeholder", "value"],
     methods: {
         updateInput(){
             switch(this.label) {

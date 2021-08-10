@@ -19,6 +19,11 @@
             <p class="text-xs lg:text-center text-red-600" v-if="submitError">Select an Emotion</p>
 
             <label class="text-sm font-bold text-indigo-600 tracking-wide">Photo</label>
+            <!-- <ThePhotoSelector /> -->
+            <!-- <div class="flex my-2">
+                <hr class="my-2 border-indigo-600 rounded w-72"> 
+                <h1 class="mx-4 text-xs opacity-40">OR</h1>
+            </div> -->
             <TheUploadField />
         </aside>
             <div class="md:w-9/12 lg:w-5/12">
@@ -51,10 +56,12 @@ import TheUploadField from '@/components/TheUploadField.vue'
 import TheTextArea from '@/components/TheTextArea.vue'
 import TheEmotion from '@/components/TheEmotion.vue'
 import TheCheckbox from '@/components/TheCheckbox.vue'
+import ThePhotoSelector from '@/components/ThePhotoSelector.vue'
 export default {
     name: 'AddEntry',
     components: { TheButton, TheButton2, TheCancelButton,  TheModal, TheNavbar, TheLogo,
-     TheFixedAddEntryBtn, TheInputField, TheTextArea, TheEmotion, TheUploadField, TheCheckbox },
+     TheFixedAddEntryBtn, TheInputField, TheTextArea, TheEmotion, TheUploadField, TheCheckbox, 
+     ThePhotoSelector },
      data(){
          return {
              selectedEmotion: undefined,

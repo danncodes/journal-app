@@ -29,9 +29,9 @@
             <TheUploadField />
         </aside>
             <div class="md:w-9/12 lg:w-5/12">
-                <TheInputField label="Title" type="text" :placeholder="postData.title"/>
-                <TheInputField label="Tags" type="text" :placeholder="postData.tags"/>
-                <TheTextArea label="Entry" :placeholder="postData.entry" />
+                <TheInputField label="Title" type="text" :value="postData.title"/>
+                <TheInputField label="Tags" type="text" :value="postData.tags"/>
+                <TheTextArea label="Entry" :value="postData.entry" />
                 <TheCheckbox class="my-2" :checked="postData.public"/>
                 <div class="w-full flex justify-between">
                     <a href="/dashboard" class="mx-2 w-full">
@@ -94,6 +94,11 @@ export default {
          this.getPost()
      },
      methods: {
+         setInitialInputValues(){
+             this.$store.commit("updateTitle", this.postData.title)
+             this.$store.commit("updateTags", this.postData.tags)
+             this.$store.commit("updateTextArea", this.postData.entry)
+         },
         selectEmotion(e){
             const emotions = this.$refs.emotionContainer.children
 
@@ -120,6 +125,7 @@ export default {
             }
             })
             this.postData = await res.json()
+            this.setInitialInputValues()
             }
             catch (err){
             window.location.href = "/notfound";
