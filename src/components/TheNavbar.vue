@@ -30,7 +30,8 @@
             </a>
 
         </section>
-        <section class="flex flex-col my-4 md:w-full md:px-4">
+
+        <section class="flex flex-col mb-28 md:w-full md:px-4">
 
             <a href="#" class="text-2xl text-white opacity-80 hover:opacity-100 transition duration-300 ease-in-out my-4 md:flex md:w-full md:justify-between md:items-center">
                 <p class="text-base hidden md:block">Logout</p>

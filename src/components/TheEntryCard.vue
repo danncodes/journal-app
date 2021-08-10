@@ -21,7 +21,7 @@
 import TheDeleteConfirmationModal from '@/components/TheDeleteConfirmationModal.vue'
 
 export default {
-  props: ["title", "tags", "emotion", "entryID"],
+  props: ["title", "tags", "emotion", "entryID", "photo"],
   components: { TheDeleteConfirmationModal },
   computed: {
     showDeleteModal(){
