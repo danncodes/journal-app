@@ -14,6 +14,7 @@ export default createStore({
     title: "",
     tags: "",
     textArea: "",
+    selectedImage: "",
     selectedEmotion: undefined,
     checkbox: false,
     ModalentryId: undefined,
@@ -88,6 +89,10 @@ export default createStore({
     closeDeleteModal(state){
       state.deleteModalEntryID = undefined
       state.showDeleteModal = false
+    },
+    imageSelected(state, image){
+      state.selectedImage = image
+      console.log(state.selectedImage)
 
     }
   },

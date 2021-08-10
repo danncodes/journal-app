@@ -6,7 +6,7 @@ class Entries extends Model{}
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: path.join(__dirname, "db.sqlite")
+    storage: path.join(__dirname, "db.sqlite") // Potencial Production Issue
   });
 
 

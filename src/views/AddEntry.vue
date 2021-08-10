@@ -3,30 +3,34 @@
     <main class="mt-20 lg:mt-0 p-4">
         <form class="sm:w-8/12 sm:mx-auto lg:flex xl:w-9/12 xl:mx-auto 
         lg:mx-0 lg:w-full lg:justify-around lg:items-center lg:h-screen" @submit.prevent="submitEntry">
-        <aside>
-            <label class="text-sm font-bold text-indigo-600 tracking-wide">Emotion</label>
-            <div class="grid grid-cols-3 gap-1 w-max h-96" ref="emotionContainer">
-                <TheEmotion @click="selectEmotion" emoji="😁" emotion="Happy"/>
-                <TheEmotion @click="selectEmotion" emoji="😎" emotion="Relaxed"/>
-                <TheEmotion @click="selectEmotion" emoji="😊" emotion="Blessed"/>
-                <TheEmotion @click="selectEmotion" emoji="😔" emotion="Depressed"/>
-                <TheEmotion @click="selectEmotion" emoji="😶" emotion="Neutral"/>
-                <TheEmotion @click="selectEmotion" emoji="😪" emotion="Tired"/>
-                <TheEmotion @click="selectEmotion" emoji="🙁" emotion="Sad"/>
-                <TheEmotion @click="selectEmotion" emoji="😨" emotion="Worried"/>
-                <TheEmotion @click="selectEmotion" emoji="😡" emotion="Angry"/>
-            </div>
-            <p class="text-xs lg:text-center text-red-600" v-if="submitError">Select an Emotion</p>
 
-            <label class="text-sm font-bold text-indigo-600 tracking-wide">Photo</label>
-            <!-- <ThePhotoSelector /> -->
-            <!-- <div class="flex my-2">
-                <hr class="my-2 border-indigo-600 rounded w-72"> 
-                <h1 class="mx-4 text-xs opacity-40">OR</h1>
-            </div> -->
-            <TheUploadField />
-        </aside>
-            <div class="md:w-9/12 lg:w-5/12">
+            <!-- Emotions and Photo Selector -->
+            <aside>
+                <label class="text-sm font-bold text-indigo-600 tracking-wide">Emotion</label>
+                <div class="grid grid-cols-3 gap-1 w-max h-96" ref="emotionContainer">
+                    <TheEmotion @click="selectEmotion" emoji="😁" emotion="Happy"/>
+                    <TheEmotion @click="selectEmotion" emoji="😎" emotion="Relaxed"/>
+                    <TheEmotion @click="selectEmotion" emoji="😊" emotion="Blessed"/>
+                    <TheEmotion @click="selectEmotion" emoji="😔" emotion="Depressed"/>
+                    <TheEmotion @click="selectEmotion" emoji="😶" emotion="Neutral"/>
+                    <TheEmotion @click="selectEmotion" emoji="😪" emotion="Tired"/>
+                    <TheEmotion @click="selectEmotion" emoji="🙁" emotion="Sad"/>
+                    <TheEmotion @click="selectEmotion" emoji="😨" emotion="Worried"/>
+                    <TheEmotion @click="selectEmotion" emoji="😡" emotion="Angry"/>
+                </div>
+                <p class="text-xs lg:text-center text-red-600" v-if="submitError">Select an Emotion</p>
+
+                <label class="text-sm font-bold text-indigo-600 tracking-wide">Photo</label>
+                <!-- <ThePhotoSelector />
+                <div class="flex my-2">
+                    <hr class="my-2 border-indigo-600 rounded w-72"> 
+                    <h1 class="mx-4 text-xs opacity-40">OR</h1>
+                </div> -->
+                <TheUploadField />
+            </aside>
+
+            <!-- Input Form Section -->
+            <div class="md:w-9/12 lg:w-5/12 xl:w-4/12">
                 <TheInputField label="Title" type="text" placeholder="Title"/>
                 <TheInputField label="Tags" type="text" placeholder="Tags"/>
                 <TheTextArea label="Entry"/>
@@ -86,6 +90,9 @@ export default {
          },
          userID(){
              return this.$store.state.userID
+         },
+         selectedImage(){
+             return this.$store.state.selectedImage
          }
      },
      methods: {
@@ -128,7 +135,7 @@ export default {
                     'Authorization': 'Bearer ' + localStorage.getItem('jwt')
                 },
                 body: JSON.stringify({title: this.title, entry: this.textArea, tags: this.tags,
-                        emotion: this.emotion, "public": this.checkbox, "photo": "some/url/lol"
+                        emotion: this.emotion, "public": this.checkbox, "photo": this.selectedImage
                         })
                 })
                 const data = await res
