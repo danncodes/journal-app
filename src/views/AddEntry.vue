@@ -7,7 +7,7 @@
             <!-- Emotions and Photo Selector -->
             <aside>
                 <label class="text-sm font-bold text-indigo-600 tracking-wide">Emotion</label>
-                <div class="grid grid-cols-3 gap-1 w-max h-96" ref="emotionContainer">
+                <div class="grid grid-cols-3 gap-1 w-max h-80" ref="emotionContainer">
                     <TheEmotion @click="selectEmotion" emoji="😁" emotion="Happy"/>
                     <TheEmotion @click="selectEmotion" emoji="😎" emotion="Relaxed"/>
                     <TheEmotion @click="selectEmotion" emoji="😊" emotion="Blessed"/>

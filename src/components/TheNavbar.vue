@@ -33,7 +33,7 @@
 
         <section class="flex flex-col mb-28 md:w-full md:px-4">
 
-            <a href="#" class="text-2xl text-white opacity-80 hover:opacity-100 transition duration-300 ease-in-out my-4 md:flex md:w-full md:justify-between md:items-center">
+            <a href="#" class="text-2xl text-white opacity-80 hover:opacity-100 transition duration-300 ease-in-out my-4 md:flex md:w-full md:justify-between md:items-center" @click="logout">
                 <p class="text-base hidden md:block">Logout</p>
                 <i class='bx bx-log-out' ></i>
             </a>
@@ -53,6 +53,10 @@ export default {
     methods: {
         toggleNav(){
             this.$store.commit('toggleNav')
+        },
+        logout(){
+            this.$store.commit('logout')
+
         }
     }
 
