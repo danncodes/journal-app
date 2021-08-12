@@ -90,6 +90,11 @@ export default {
              return this.$store.state.userID
          },
      },
+     beforeMount(){
+        if(!this.userID){
+            window.location.href = "/notfound";
+        }
+     },
      mounted(){
          this.getPost()
      },

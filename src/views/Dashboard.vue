@@ -46,6 +46,10 @@ export default {
         }
     },
     beforeMount(){
+        if(!this.userID){
+          window.location.href = "/notfound";
+        }
+
         this.fetchPosts()
     },
     methods: {

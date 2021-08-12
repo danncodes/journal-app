@@ -95,6 +95,11 @@ export default {
              return this.$store.state.selectedImage
          }
      },
+     beforeMount(){
+        if(!this.userID){
+            window.location.href = "/notfound";
+        }
+     },
      methods: {
         selectEmotion(e){
             const emotions = this.$refs.emotionContainer.children

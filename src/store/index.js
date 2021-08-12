@@ -22,8 +22,8 @@ export default createStore({
     userID: localStorage.getItem("jwt") ? JSON.parse(atob(localStorage.getItem("jwt").split('.')[1])).userId : undefined,
   },
   mutations: {
-      toggleNav(state){
-        state.showNav = !state.showNav
+    toggleNav(state){
+      state.showNav = !state.showNav
     },
     updateUsername(state, inputValue){
       state.username =  inputValue

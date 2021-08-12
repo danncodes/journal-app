@@ -52,7 +52,12 @@ import TheButton from '@/components/TheButton.vue'
 import TheNavbar from '@/components/TheNavbar.vue'
 
 export default {
-  components: { TheInputField, TheButton, TheNavbar }
+  components: { TheInputField, TheButton, TheNavbar },
+  beforeMount(){
+    if(!this.userID){
+        window.location.href = "/notfound";
+    }
+  },
 
 }
 </script>
