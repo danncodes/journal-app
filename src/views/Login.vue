@@ -56,6 +56,14 @@ export default {
     password(){
       return this.$store.state.password
     },
+    userID(){
+      return this.$store.state.userID
+    }
+  },
+  beforeMount(){
+    if(this.userID){
+      window.location.href = "/dashboard";
+    }
   },
   methods: {
     async submitForm(){

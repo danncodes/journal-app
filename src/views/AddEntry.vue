@@ -150,7 +150,6 @@ export default {
                 }
             }
             catch (err){
-                window.location.href = "/notfound";
             }
 
         }

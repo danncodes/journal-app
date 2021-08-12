@@ -91,6 +91,14 @@ export default {
     },
     phone(){
       return this.$store.state.phone
+    },
+    userID(){
+      return this.$store.state.userID
+    }
+  },
+  beforeMount(){
+    if(this.userID){
+      window.location.href = "/dashboard";
     }
   },
   methods: {
