@@ -5,7 +5,7 @@
         lg:mx-0 lg:w-full lg:justify-around lg:items-center lg:h-screen" @submit.prevent="submitEntry">
 
             <!-- Emotions and Photo Selector -->
-            <aside>
+            <aside class="lg:mt-16">
                 <label class="text-sm font-bold text-indigo-600 tracking-wide">Emotion</label>
                 <div class="grid grid-cols-3 gap-1 w-max h-80" ref="emotionContainer">
                     <TheEmotion @click="selectEmotion" emoji="😁" emotion="Happy"/>
@@ -21,12 +21,8 @@
                 <p class="text-xs lg:text-center text-red-600" v-if="submitError">Select an Emotion</p>
 
                 <label class="text-sm font-bold text-indigo-600 tracking-wide">Photo</label>
-                <!-- <ThePhotoSelector />
-                <div class="flex my-2">
-                    <hr class="my-2 border-indigo-600 rounded w-72"> 
-                    <h1 class="mx-4 text-xs opacity-40">OR</h1>
-                </div> -->
-                <TheUploadField />
+                <ThePhotoSelector />
+                <!-- <TheUploadField /> -->
             </aside>
 
             <!-- Input Form Section -->
@@ -93,12 +89,14 @@ export default {
          },
          selectedImage(){
              return this.$store.state.selectedImage
-         }
+         },
      },
      beforeMount(){
-        if(!this.userID){
-            window.location.href = "/notfound";
-        }
+         console.log(this.userID)
+
+         if(!this.userID){
+             window.location.href = "/notfound"
+         }
      },
      methods: {
         selectEmotion(e){
@@ -130,6 +128,8 @@ export default {
             }
 
             this.submitError = false
+
+            
             try{
                 const requestURL = `/api/users/${this.userID}/entries`
 
@@ -148,8 +148,13 @@ export default {
                     this.$store.commit("clearUserState")
                     window.location.href = "/dashboard";
                 }
+                else if(data.status === 403){
+                    this.$store.commit("logout")
+                    window.location.href = "/notfound";
+                }
             }
             catch (err){
+
             }
 
         }

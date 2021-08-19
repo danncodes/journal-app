@@ -82,16 +82,6 @@ import TheRisingCircles from '@/components/TheRisingCircles.vue'
 export default {
   name: 'Home',
   components: { TheButton, TheButton2, TheModal, TheNavbar, TheLogo, TheReviewCard, TheRisingCircles },
-  computed: {
-    userID(){
-        return this.$store.state.userID
-    },
-  },
-  beforeMount(){
-    if(this.userID){
-        window.location.href = "/dashboard";
-    }
-  },
 }
 </script>
 

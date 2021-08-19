@@ -1,7 +1,8 @@
 <template>
   <figure class="w-full h-24 shadow-md rounded transition duration-300 flex my-2 hover:shadow-2xl
   transform hover:translate-x-4 cursor-pointer" @click="displayModal">
-    <img src="../assets/entryimg.jpg" alt="" class="h-full mr-2">
+    <img :src="photo" alt="" class="h-full mr-2" v-if="photo">
+    <img src="https://images.unsplash.com/photo-1628016283207-ddecbe7fde33?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="" class="h-full mr-2" v-else>
     <figcaption class="w-full m-2 relative flex flex-col justify-between">
       <div class="w-10/12 overflow-hidden">
         <h1 class="font-semibold">{{ title }}</h1>

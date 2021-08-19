@@ -92,13 +92,11 @@ export default createStore({
     },
     imageSelected(state, image){
       state.selectedImage = image
-      console.log(state.selectedImage)
     },
     logout(state){
       state.userID = undefined
       localStorage.removeItem("jwt")
-      window.location.href = "/";
-    }
+    },
   },
   actions: {
   },

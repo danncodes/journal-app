@@ -4,7 +4,13 @@
       <div class="overflow-hidden p-1">
           <p class="overflow-ellipsis">{{ fileName }}</p>
       </div>
-      <TheButton btnText ="Upload" @click="toggleClick"/>
+        <TheButton btnText ="Upload" @click="$refs.realBtn.click()" v-if="!selectedFile"/>
+
+        <div class="flex justify-around">
+        <TheCancelButton btnText ="Cancel" @click="cancelUpload" v-if="selectedFile"/>
+        <TheButton btnText ="Save" @click="onUpload" v-if="selectedFile"/>
+        </div>
+
 
       <input type="file" name="" id="" ref="realBtn" hidden @change="fileChosen">
   </div>
@@ -12,22 +18,43 @@
 
 <script>
 import TheButton from '@/components/TheButton.vue'
+import TheCancelButton from '@/components/TheCancelButton.vue'
 
 export default {
-    components: { TheButton },
+    components: { TheButton, TheCancelButton },
     data(){
         return {
-        fileName: "Upload A Photo"
+        fileName: "Upload A Photo",
+        selectedFile: null
         }
     },
     methods: {
-        toggleClick(){
-            this.$refs.realBtn.click()
-        },
-        fileChosen(){
+        fileChosen(event){
             if(this.$refs.realBtn.value){
             this.fileName = this.$refs.realBtn.value
+            this.selectedFile = event.target.files
+            this.$store.commit("selectUploadImage", this.selectedFile[0])
             }
+        },
+        cancelUpload(){
+            this.selectedFile = null
+            this.fileName = "Upload A Photo"
+        },
+        async onUpload(){
+            const formData = new FormData()
+            const endpoint = "/api/image"
+
+            formData.append("file", this.selectedFile[0])
+            
+            fetch(endpoint, {
+            method: 'POST',
+            body: formData
+            }).then( () => {
+                console.log("File Should be updated")
+            }).catch( err => {
+                console.error();
+            })
+            
         }
     }
 

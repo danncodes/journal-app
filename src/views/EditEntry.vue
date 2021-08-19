@@ -26,7 +26,8 @@
             <p class="text-xs lg:text-center text-red-600" v-if="submitError">Select an Emotion</p>
 
             <label class="text-sm font-bold text-indigo-600 tracking-wide">Photo</label>
-            <TheUploadField />
+                <ThePhotoSelector />
+            <!-- <TheUploadField /> -->
         </aside>
             <div class="md:w-9/12 lg:w-5/12">
                 <TheInputField label="Title" type="text" :value="postData.title"/>
@@ -58,10 +59,11 @@ import TheUploadField from '@/components/TheUploadField.vue'
 import TheTextArea from '@/components/TheTextArea.vue'
 import TheEmotion from '@/components/TheEmotion.vue'
 import TheCheckbox from '@/components/TheCheckbox.vue'
+import ThePhotoSelector from '@/components/ThePhotoSelector.vue'
 export default {
     name: 'EditEntry',
     components: { TheButton, TheButton2, TheCancelButton,  TheModal, TheNavbar, TheLogo,
-     TheFixedAddEntryBtn, TheInputField, TheTextArea, TheEmotion, TheUploadField, TheCheckbox },
+     TheFixedAddEntryBtn, TheInputField, TheTextArea, TheEmotion, TheUploadField, TheCheckbox, ThePhotoSelector },
      data(){
          return {
              selectedEmotion: undefined,
@@ -89,11 +91,9 @@ export default {
          userID(){
              return this.$store.state.userID
          },
-     },
-     beforeMount(){
-        if(!this.userID){
-            window.location.href = "/notfound";
-        }
+         selectedImage(){
+             return this.$store.state.selectedImage
+         },
      },
      mounted(){
          this.getPost()
@@ -133,6 +133,7 @@ export default {
             this.setInitialInputValues()
             }
             catch (err){
+            this.$store.commit("logout")
             window.location.href = "/notfound";
             }
         },
@@ -157,7 +158,7 @@ export default {
                     'Authorization': 'Bearer ' + localStorage.getItem('jwt')
                 },
                 body: JSON.stringify({title: this.title, entry: this.textArea, tags: this.tags,
-                        emotion: this.emotion, "public": this.checkbox, "photo": "some/url/lol"
+                        emotion: this.emotion, "public": this.checkbox, "photo": this.selectedImage
                         })
                 })
                 const data = await res
@@ -167,6 +168,7 @@ export default {
                 }
             }
             catch (err){
+                this.$store.commit("logout")
                 window.location.href = "/notfound";
             }
 

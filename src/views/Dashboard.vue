@@ -2,7 +2,7 @@
   <TheNavbar />
   <!-- All Entries -->
   <main class="mt-16 p-4 min-h-screen md:w-8/12 sm:mx-auto lg:w-6/12 sm:w-10/12 xl:w-4/12" v-if="postLength > 0">
-      <TheEntryCard v-for="entry in allEntries" :key="entry.entryID" :title="entry.title" :tags="entry.tags" :emotion="entry.emotion.split(' ')[0]" :entryID="entry.entryID" :photo="entry.entryID"/>
+      <TheEntryCard v-for="entry in allEntries" :key="entry.entryID" :title="entry.title" :tags="entry.tags" :emotion="entry.emotion.split(' ')[0]" :entryID="entry.entryID" :photo="entry.photo"/>
   </main>
 
   <!-- No Entries -->
@@ -46,10 +46,6 @@ export default {
         }
     },
     beforeMount(){
-        if(!this.userID){
-          window.location.href = "/notfound";
-        }
-
         this.fetchPosts()
     },
     methods: {
@@ -64,10 +60,13 @@ export default {
                 })
                 const data = await res.json()
                 this.allEntries = data
+                console.log(this.allEntries)
                 this.postLength = this.allEntries.length
             }
             catch (err){
             this.postLength = 0
+            this.$store.commit("logout")
+            window.location.href = "/notfound";
             }
         }
     }

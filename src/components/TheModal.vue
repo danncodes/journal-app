@@ -5,7 +5,8 @@
       <div class="bg-white border-t-8 border-indigo-600 
       relative rounded p-2 flex flex-col justify-between h-5/6 w-5/6" v-if="postData">
         <figure class="flex flex-col p-1 h-5/6 md:h-4/6 items-center md:flex-row md:my-auto">
-          <img src="../assets/entryimg.jpg" alt="" class="w-7/12 sm:w-5/12 my-6 h-full object-contain">
+          <img :src="postData.photo" alt="" class="w-7/12 sm:w-5/12 my-6 h-full object-contain" v-if="postData.photo">
+          <img src="https://images.unsplash.com/photo-1628016283207-ddecbe7fde33?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="" class="w-7/12 sm:w-5/12 my-6 h-full object-contain" v-else>
           <figcaption class="w-10/12 lg:w-6/12 lg:mx-auto flex-col flex items-center sm:p-3 md:p-4 overflow-scroll h-full">
             <h1 class="font-semibold sm:text-xl md:text-2xl">{{ postData.title }}</h1>
             <div class="my-4 mb-4 text-center">
