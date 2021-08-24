@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col my-4 w-72">
-      <img src="https://bulma.io/images/placeholders/128x128.png" alt="" class="h-64 w-full mb-4 object-contain" ref="selectedImage">
+      <img src="https://bulma.io/images/placeholders/128x128.png" alt="" class="h-64 w-full mb-4 object-contain" ref="selectedImage" v-if="!image">
+      <img :src="image" alt="" class="h-64 w-full mb-4 object-contain" ref="selectedImage" v-if="image">
       <div class="grid grid-cols-3 gap-2 h-48 w-full px-2 overflow-x-scroll justify-items-center">
           <img src="https://images.unsplash.com/photo-1577253313708-cab167d2c474?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1444&q=80" alt="" class="opacity-80 h-20 w-full hover:opacity-100 transform transition-all duration-300 cursor-pointer" @click="selectImage">
           <img src="https://images.unsplash.com/photo-1542685295-b280fd4d2c59?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80" alt="" class="opacity-80 h-20 w-full hover:opacity-100 transform transition-all duration-300 cursor-pointer" @click="selectImage">
@@ -45,6 +46,7 @@
 
 <script>
 export default {
+    props: ["image"],
     data(){
         return {
             selectedImage: undefined

@@ -26,7 +26,7 @@
             <p class="text-xs lg:text-center text-red-600" v-if="submitError">Select an Emotion</p>
 
             <label class="text-sm font-bold text-indigo-600 tracking-wide">Photo</label>
-                <ThePhotoSelector />
+                <ThePhotoSelector :image="postData.photo"/>
             <!-- <TheUploadField /> -->
         </aside>
             <div class="md:w-9/12 lg:w-5/12">
@@ -130,6 +130,7 @@ export default {
             }
             })
             this.postData = await res.json()
+            console.log(this.postData)
             this.setInitialInputValues()
             }
             catch (err){

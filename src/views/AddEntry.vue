@@ -92,8 +92,6 @@ export default {
          },
      },
      beforeMount(){
-         console.log(this.userID)
-
          if(!this.userID){
              window.location.href = "/notfound"
          }

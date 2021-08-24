@@ -1,5 +1,6 @@
 <template>
-  <TheNavbar />
+<TheNavbar />
+
   <!-- All Entries -->
   <main class="mt-16 p-4 min-h-screen md:w-8/12 sm:mx-auto lg:w-6/12 sm:w-10/12 xl:w-4/12" v-if="postLength > 0">
       <TheEntryCard v-for="entry in allEntries" :key="entry.entryID" :title="entry.title" :tags="entry.tags" :emotion="entry.emotion.split(' ')[0]" :entryID="entry.entryID" :photo="entry.photo" :UserUid="entry.UserUid"/>
@@ -27,9 +28,8 @@ import TheLogo from '@/components/TheLogo.vue'
 import TheFixedAddEntryBtn from '@/components/TheFixedAddEntryBtn.vue'
 import TheEntryCard from '@/components/TheEntryCard.vue'
 import TheRisingCircles from '@/components/TheRisingCircles.vue'
-
 export default {
-    name: 'Dashboard',
+    name: 'Discover',
     components: { TheButton, TheButton2, TheModal, TheNavbar, TheLogo, TheFixedAddEntryBtn, TheEntryCard, TheRisingCircles },
     data(){
         return {
@@ -51,11 +51,10 @@ export default {
     methods: {
         async fetchPosts(){
             try{
-                const requestURL = `/api/users/${this.userID}/entries`
+                const requestURL = `api/users/entries`
                 const res = await fetch(requestURL, {
                     headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
                 }
                 })
                 const data = await res.json()
@@ -64,9 +63,12 @@ export default {
             }
             catch (err){
             this.postLength = 0
+            this.$store.commit("logout")
+            window.location.href = "/notfound";
             }
         }
     }
+
 }
 </script>
 

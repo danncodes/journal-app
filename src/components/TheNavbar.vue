@@ -20,7 +20,7 @@
                 <p class="text-base hidden md:block">New Entry</p>
                 <i class='bx bxs-add-to-queue' ></i>
             </a>
-            <a href="#" class="text-2xl text-white opacity-80 hover:opacity-100 transition duration-300 ease-in-out my-4 md:flex md:w-full md:justify-between md:items-center">
+            <a href="/discover" class="text-2xl text-white opacity-80 hover:opacity-100 transition duration-300 ease-in-out my-4 md:flex md:w-full md:justify-between md:items-center">
                 <p class="text-base hidden md:block">Discover</p>
                 <i class='bx bx-search-alt-2' ></i>
             </a>

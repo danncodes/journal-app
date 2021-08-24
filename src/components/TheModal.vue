@@ -25,7 +25,7 @@
             <p class="font-extralight text-sm md:text-xl lg:text-2xl opacity-80">{{ postData.emotion.split(" ")[1] }}</p>
           </div>
 
-          <div class="flex">
+          <div class="flex" v-if="userID === postData.UserUid">
             <a :href="'/editentry/' + postData.entryID" class="flex justify-center items-center">
               <i class="far fa-edit text-indigo-600 hover:text-indigo-800 mx-1 cursor-pointer md:text-2xl lg:text-3xl"></i>
             </a>
@@ -51,7 +51,7 @@
 
 <script>
 export default {
-  props: ["image" ,"title","tags","date", "entry", "emotion"],
+  props: ["image" ,"title","tags","date", "entry", "emotion", "UserUid"],
   data(){
     return{
       postData: undefined

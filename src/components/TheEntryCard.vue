@@ -9,10 +9,10 @@
         <p class="text-xs my-1 text-indigo-600 font-medium sm:text-sm">{{ tags }}</p>
       </div>
         <p class="text-lg">{{ emotion }}</p>
-        <a :href="'/editentry/' + entryID">
+        <a :href="'/editentry/' + entryID" v-if="UserUid === userID">
           <i class="far fa-edit text-indigo-600 hover:text-indigo-800 cursor-pointer absolute right-2 bottom-2"></i>
         </a>
-        <i class="fas fa-ban text-indigo-600 hover:text-indigo-800 cursor-pointer absolute right-2 top-2" @click.self="displayDeleteModal(entryID)"></i>
+        <i class="fas fa-ban text-indigo-600 hover:text-indigo-800 cursor-pointer absolute right-2 top-2" @click.self="displayDeleteModal(entryID)" v-if="UserUid === userID"></i>
     </figcaption>
     </figure>
     <TheDeleteConfirmationModal v-if="showDeleteModal"/>
@@ -22,12 +22,15 @@
 import TheDeleteConfirmationModal from '@/components/TheDeleteConfirmationModal.vue'
 
 export default {
-  props: ["title", "tags", "emotion", "entryID", "photo"],
+  props: ["title", "tags", "emotion", "entryID", "photo", "UserUid"],
   components: { TheDeleteConfirmationModal },
   computed: {
     showDeleteModal(){
       return this.$store.state.showDeleteModal
-    }
+    },
+    userID(){
+    return this.$store.state.userID
+  },
   },
   methods: {
     displayDeleteModal(entryID){
