@@ -48,7 +48,8 @@ const routes = [
   {
     path: '/settings',
     name: 'Settings',
-    component: Settings
+    component: Settings,
+    redirect: '/notfound'
   },
   {
     path: '/notfound',

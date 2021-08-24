@@ -24,10 +24,10 @@
                 <p class="text-base hidden md:block">Discover</p>
                 <i class='bx bx-search-alt-2' ></i>
             </a>
-            <a href="/settings" class="text-2xl text-white opacity-80 hover:opacity-100 transition duration-300 ease-in-out my-4 md:flex md:w-full md:justify-between md:items-center">
+            <!-- <a href="/settings" class="text-2xl text-white opacity-80 hover:opacity-100 transition duration-300 ease-in-out my-4 md:flex md:w-full md:justify-between md:items-center">
                 <p class="text-base hidden md:block">Settings</p>
                 <i class='bx bxs-user-detail'></i>
-            </a>
+            </a> -->
 
         </section>
 
