@@ -7,6 +7,7 @@ export const createAPI = async (apiURL, body) => {
 
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`, {
+            mode: 'no-cors',
             method: 'POST',
             headers: {'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')
@@ -21,13 +22,14 @@ export const createAPI = async (apiURL, body) => {
         console.log(err)
         return false
     }
-}
+} 
 
 export const readAPI = async (apiURL) => {
     console.log("ServerURL", SERVER_URL, " + ", "IsLocal",IS_LOCAL)
 
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`,{
+            mode: 'no-cors',
             headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')
@@ -48,6 +50,7 @@ export const updateAPI = async (apiURL, body) => {
 
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`, {
+            mode: 'no-cors',
             method: 'PATCH',
             headers: {'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')
@@ -70,6 +73,7 @@ export const deleteAPI = async (apiURL) => {
 
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`,{
+            mode: 'no-cors',
             method: 'DELETE',
             headers: {
             'Content-Type': 'application/json',
