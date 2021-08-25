@@ -19,7 +19,6 @@
       </div>
       <figcaption class="flex flex-col text-right mt-2">
          <p class="my-1 text-xs"> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi, saepe!</p>
-         <p class="text-indigo-700 text-xxs">Company Name</p>
       </figcaption>
   </figure>
 </template>

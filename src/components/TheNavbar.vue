@@ -54,10 +54,6 @@ export default {
         toggleNav(){
             this.$store.commit('toggleNav')
         },
-        logout(){
-            this.$store.commit('logout')
-            window.location.href = "/";
-        }
     }
 
 }
