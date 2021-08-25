@@ -1,4 +1,4 @@
-const IS_LOCAL = true
+const IS_LOCAL = false
 const SERVER_URL = process.env.SERVER_URL
 
 
