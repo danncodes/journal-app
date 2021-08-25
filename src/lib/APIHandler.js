@@ -1,12 +1,14 @@
+const IS_LOCAL = false
+
 export const createAPI = async (apiURL, body) => {
     try {
-        const req = await fetch(`${process.env.API_BASE_URL || ""}${apiURL}`, {
+        const req = await fetch(`${IS_LOCAL ? "" : "https://desolate-fjord-35734.herokuapp.com"}${apiURL}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(body)
             })
         console.log(req)
-        console.log(process.env.API_BASE_URL)
+        console.log(process)
         if(req.ok) {
             return req
         }
