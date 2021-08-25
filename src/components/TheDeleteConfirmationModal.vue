@@ -17,6 +17,7 @@
 <script>
 import TheButton from '@/components/TheButton.vue'
 import TheCancelButton from '@/components/TheCancelButton.vue'
+import { deleteAPI } from '@/lib/APIHandler'
 
 export default {
     components: { TheButton, TheCancelButton },
@@ -35,16 +36,11 @@ export default {
         },
         async confirmEntryDelete(){
             try{
-          await fetch(`/api/users/${this.userID}/entries/${this.deleteModalEntryID}`,{
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-            },
-          }).then(()=> {
-              this.$store.commit("closeDeleteModal")
-              window.location.href = "/dashboard"
-          })
+                const req = await deleteAPI(`/api/users/${this.userID}/entries/${this.deleteModalEntryID}`)
+                if(req.ok){
+                    this.$store.commit("closeDeleteModal")
+                    window.location.href = "/dashboard"
+                }
        }
         catch (err){
         }

@@ -64,6 +64,7 @@
 <script>
 import TheInputField from '@/components/TheInputField.vue'
 import TheButton from '@/components/TheButton.vue'
+import { createAPI } from '@/lib/APIHandler'
 export default {
   components: { TheInputField, TheButton },
   data(){
@@ -109,12 +110,8 @@ export default {
       this.passwordMatch = true
 
       try{
-         const res = await fetch("/api/users", {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({username: this.username, password: this.password, firstname: this.firstname,
+         const res = await createAPI("/api/users", {username: this.username, password: this.password, firstname: this.firstname,
            lastname: this.lastname, phone: this.phone})
-          })
           
           if(res.status === 201){
             this.userRegistered = true
@@ -127,8 +124,6 @@ export default {
       }
       catch (err){
       }
-
-      
       
     }
   }
