@@ -27,6 +27,8 @@ import TheLogo from '@/components/TheLogo.vue'
 import TheFixedAddEntryBtn from '@/components/TheFixedAddEntryBtn.vue'
 import TheEntryCard from '@/components/TheEntryCard.vue'
 import TheRisingCircles from '@/components/TheRisingCircles.vue'
+import { readAPI } from '@/lib/APIHandler'
+
 
 export default {
     name: 'Dashboard',
@@ -51,19 +53,19 @@ export default {
     methods: {
         async fetchPosts(){
             try{
-                const requestURL = `/api/users/${this.userID}/entries`
-                const res = await fetch(requestURL, {
-                    headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+                const res = await readAPI(`/api/users/${this.userID}/entries`)
+                if(res.ok){
+                    const data = await res.json()
+                    this.allEntries = data
+                    this.postLength = this.allEntries.length
                 }
-                })
-                const data = await res.json()
-                this.allEntries = data
-                this.postLength = this.allEntries.length
+                else {
+                this.postLength = 0
+                }
             }
             catch (err){
-            this.postLength = 0
+                console.log(err)
+                window.location.href = "/notfound";
             }
         }
     }

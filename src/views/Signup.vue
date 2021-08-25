@@ -113,16 +113,17 @@ export default {
          const res = await createAPI("/api/users", {username: this.username, password: this.password, firstname: this.firstname,
            lastname: this.lastname, phone: this.phone})
           
-          if(res.status === 201){
+          if(res.ok){
             this.userRegistered = true
             this.usernameTaken = false
             this.$store.commit("clearUserState")
           } 
-          else if(res.status === 401){
+          else{
             this.usernameTaken = true
           }
       }
       catch (err){
+        console.log(err)
       }
       
     }

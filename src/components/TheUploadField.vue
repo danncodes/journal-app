@@ -8,7 +8,6 @@
 
         <div class="flex justify-around">
         <TheCancelButton btnText ="Cancel" @click="cancelUpload" v-if="selectedFile"/>
-        <TheButton btnText ="Save" @click="onUpload" v-if="selectedFile"/>
         </div>
 
 
@@ -40,22 +39,6 @@ export default {
             this.selectedFile = null
             this.fileName = "Upload A Photo"
         },
-        async onUpload(){
-            const formData = new FormData()
-            const endpoint = "/api/image"
-
-            formData.append("file", this.selectedFile[0])
-            
-            fetch(endpoint, {
-            method: 'POST',
-            body: formData
-            }).then( () => {
-                console.log("File Should be updated")
-            }).catch( err => {
-                console.error();
-            })
-            
-        }
     }
 
 }

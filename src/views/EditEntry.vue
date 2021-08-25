@@ -60,6 +60,9 @@ import TheTextArea from '@/components/TheTextArea.vue'
 import TheEmotion from '@/components/TheEmotion.vue'
 import TheCheckbox from '@/components/TheCheckbox.vue'
 import ThePhotoSelector from '@/components/ThePhotoSelector.vue'
+import { readAPI } from '@/lib/APIHandler'
+import { updateAPI } from '@/lib/APIHandler'
+
 export default {
     name: 'EditEntry',
     components: { TheButton, TheButton2, TheCancelButton,  TheModal, TheNavbar, TheLogo,
@@ -123,19 +126,21 @@ export default {
         async getPost(){
             this.entryID = this.$route.params.entryID
             try{
-            const res = await fetch(`/api/users/${this.userID}/entries/${this.entryID}`, {
-            headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-            }
-            })
-            this.postData = await res.json()
-            console.log(this.postData)
-            this.setInitialInputValues()
+
+                const res = await readAPI(`/api/users/${this.userID}/entries/${this.entryID}`)
+
+                console.log(res)
+
+                if(res.ok){
+                    this.postData = await res.json()
+                    this.setInitialInputValues()
+                }
             }
             catch (err){
-            this.$store.commit("logout")
-            window.location.href = "/notfound";
+                console.log(err)
+                this.$store.commit("logout")
+                window.location.href = "/notfound";
+
             }
         },
         async submitEntry(){
@@ -152,25 +157,21 @@ export default {
 
             this.submitError = false
             try{
-                const res = await fetch(`/api/users/${this.userID}/entries/${this.entryID}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-                },
-                body: JSON.stringify({title: this.title, entry: this.textArea, tags: this.tags,
-                        emotion: this.emotion, "public": this.checkbox, "photo": this.selectedImage
-                        })
+
+                const res = await updateAPI(`/api/users/${this.userID}/entries/${this.entryID}`, {title: this.title, entry: this.textArea, tags: this.tags,
+                    emotion: this.emotion, "public": this.checkbox, "photo": this.selectedImage
                 })
-                const data = await res
-                if(data.status === 202){
+
+                if(res.ok){
                     this.$store.commit("clearUserState")
                     window.location.href = "/dashboard";
+
                 }
             }
             catch (err){
                 this.$store.commit("logout")
                 window.location.href = "/notfound";
+                console.log(err)
             }
 
         }

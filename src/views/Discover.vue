@@ -28,6 +28,8 @@ import TheLogo from '@/components/TheLogo.vue'
 import TheFixedAddEntryBtn from '@/components/TheFixedAddEntryBtn.vue'
 import TheEntryCard from '@/components/TheEntryCard.vue'
 import TheRisingCircles from '@/components/TheRisingCircles.vue'
+import { readAPI } from '@/lib/APIHandler'
+
 export default {
     name: 'Discover',
     components: { TheButton, TheButton2, TheModal, TheNavbar, TheLogo, TheFixedAddEntryBtn, TheEntryCard, TheRisingCircles },
@@ -51,20 +53,21 @@ export default {
     methods: {
         async fetchPosts(){
             try{
-                const requestURL = `api/users/entries`
-                const res = await fetch(requestURL, {
-                    headers: {
-                'Content-Type': 'application/json',
+                const res = await readAPI(`api/users/entries`)
+
+                if(res.ok){
+                    const data = await res.json()
+                    this.allEntries = data
+                    this.postLength = this.allEntries.length
                 }
-                })
-                const data = await res.json()
-                this.allEntries = data
-                this.postLength = this.allEntries.length
+                else{
+                    this.postLength = 0
+
+                }
             }
             catch (err){
-            this.postLength = 0
-            this.$store.commit("logout")
-            window.location.href = "/notfound";
+                console.log(err)
+                window.location.href = "/notfound";
             }
         }
     }

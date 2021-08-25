@@ -1,14 +1,16 @@
-const IS_LOCAL = false
+const IS_LOCAL = true
+const SERVER_URL = process.env.SERVER_URL
+
 
 export const createAPI = async (apiURL, body) => {
     try {
-        const req = await fetch(`${IS_LOCAL ? "" : "https://desolate-fjord-35734.herokuapp.com"}${apiURL}`, {
+        const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+        },
             body: JSON.stringify(body)
-            })
-        console.log(req)
-        console.log(process)
+        })
         if(req.ok) {
             return req
         }
@@ -19,43 +21,53 @@ export const createAPI = async (apiURL, body) => {
     }
 }
 
-const readAPI = async () => {
-    await fetch(`/api/users/${this.userID}/entries/${this.deleteModalEntryID}`,{
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-          },
-        }).then(()=> {
-            this.$store.commit("closeDeleteModal")
-            window.location.href = "/dashboard"
+export const readAPI = async (apiURL) => {
+    try {
+        const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`,{
+            headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            },
         })
+        if(req.ok) {
+            return req
+        }
+    }
+    catch(err) {
+        console.log(err)
+        return false
+    }
 }
 
-const updateAPI = async () => {
-    await fetch(`/api/users/${this.userID}/entries/${this.deleteModalEntryID}`,{
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-          },
-        }).then(()=> {
-            this.$store.commit("closeDeleteModal")
-            window.location.href = "/dashboard"
+export const updateAPI = async (apiURL, body) => {
+    try {
+        const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+        },
+            body: JSON.stringify(body)
         })
+        if(req.ok) {
+            return req
+        }
+    }
+    catch(err) {
+        console.log(err)
+        return false
+    }
 }
 
 
 export const deleteAPI = async (apiURL) => {
     try {
-        const req = await fetch(`${process.env.API_BASE_URL || ""}${apiURL}`,{
+        const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`,{
             method: 'DELETE',
             headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')
             },
         })
-        console.log(req)
         if(req.ok) {
             return req
         }

@@ -57,6 +57,7 @@ import TheTextArea from '@/components/TheTextArea.vue'
 import TheEmotion from '@/components/TheEmotion.vue'
 import TheCheckbox from '@/components/TheCheckbox.vue'
 import ThePhotoSelector from '@/components/ThePhotoSelector.vue'
+import { createAPI } from '@/lib/APIHandler'
 export default {
     name: 'AddEntry',
     components: { TheButton, TheButton2, TheCancelButton,  TheModal, TheNavbar, TheLogo,
@@ -126,32 +127,22 @@ export default {
             }
 
             this.submitError = false
-
-            
             try{
-                const requestURL = `/api/users/${this.userID}/entries`
 
-                const res = await fetch(requestURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-                },
-                body: JSON.stringify({title: this.title, entry: this.textArea, tags: this.tags,
-                        emotion: this.emotion, "public": this.checkbox, "photo": this.selectedImage
-                        })
+                const res = await createAPI(`/api/users/${this.userID}/entries`, {title: this.title, entry: this.textArea, tags: this.tags,
+                    emotion: this.emotion, "public": this.checkbox, "photo": this.selectedImage
                 })
-                const data = await res
-                if(data.status === 201){
+                if(res.ok){
                     this.$store.commit("clearUserState")
                     window.location.href = "/dashboard";
                 }
-                else if(data.status === 403){
+                else {
                     this.$store.commit("logout")
                     window.location.href = "/notfound";
                 }
             }
             catch (err){
+                console.log(err)
 
             }
 

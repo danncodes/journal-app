@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import { readAPI } from '@/lib/APIHandler'
+
 export default {
   props: ["image" ,"title","tags","date", "entry", "emotion", "UserUid"],
   data(){
@@ -66,16 +68,18 @@ export default {
     },
     async getPost(){
         try{
-          const res = await fetch(`/api/users/${this.userID}/entries/${this.entryId}`, {
-          headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-          }
-          })
+
+        const res = await readAPI(`/api/users/${this.userID}/entries/${this.entryId}`)
+
+        if(res.ok){
           this.postData = await res.json()
+        } else {
+          window.location.href = "/notfound";
+
+        }
        }
         catch (err){
-          window.location.href = "/notfound";
+          console.log(err)
         }
 
     }

@@ -41,6 +41,8 @@
 <script>
 import TheInputField from '@/components/TheInputField.vue'
 import TheButton from '@/components/TheButton.vue'
+import { createAPI } from '@/lib/APIHandler'
+
 
 export default {
   components: { TheInputField, TheButton },
@@ -63,18 +65,17 @@ export default {
   methods: {
     async submitForm(){
       try{
-          const res = await fetch("/api/signIn", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'},
-          body: JSON.stringify({username: this.username, password: this.password})
-          })
+
+        const res = await createAPI("/api/signIn", {username: this.username, password: this.password})
+
+        if(res.ok){
           const jwtToken = await res.json()
           localStorage.setItem("jwt", jwtToken.token)
           const userId = JSON.parse(atob(localStorage.getItem("jwt").split('.')[1])).userId
           this.storeUserID(userId)
           this.loginError = false 
           window.location.href = "/dashboard";
+        } 
       }
       catch (err){
         this.loginError = true 
