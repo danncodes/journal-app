@@ -1,5 +1,5 @@
 const IS_LOCAL = false
-const SERVER_URL = process.env.SERVER_URL
+const SERVER_URL = "https://desolate-fjord-35734.herokuapp.com"
 
 
 export const createAPI = async (apiURL, body) => {
