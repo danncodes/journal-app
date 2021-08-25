@@ -3,6 +3,8 @@ const SERVER_URL = process.env.SERVER_URL
 
 
 export const createAPI = async (apiURL, body) => {
+    console.log("ServerURL", SERVER_URL, " + ", "IsLocal",IS_LOCAL)
+
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`, {
             method: 'POST',
@@ -22,6 +24,8 @@ export const createAPI = async (apiURL, body) => {
 }
 
 export const readAPI = async (apiURL) => {
+    console.log("ServerURL", SERVER_URL, " + ", "IsLocal",IS_LOCAL)
+
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`,{
             headers: {
@@ -40,6 +44,8 @@ export const readAPI = async (apiURL) => {
 }
 
 export const updateAPI = async (apiURL, body) => {
+    console.log("ServerURL", SERVER_URL, " + ", "IsLocal",IS_LOCAL)
+
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`, {
             method: 'PATCH',
@@ -60,6 +66,8 @@ export const updateAPI = async (apiURL, body) => {
 
 
 export const deleteAPI = async (apiURL) => {
+    console.log("ServerURL", SERVER_URL, " + ", "IsLocal",IS_LOCAL)
+
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`,{
             method: 'DELETE',
