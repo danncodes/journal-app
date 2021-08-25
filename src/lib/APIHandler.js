@@ -1,13 +1,11 @@
-const IS_LOCAL = false
+const IS_LOCAL = true
 const SERVER_URL = "https://desolate-fjord-35734.herokuapp.com"
 
 
 export const createAPI = async (apiURL, body) => {
-    console.log("ServerURL", SERVER_URL, " + ", "IsLocal",IS_LOCAL)
 
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`, {
-            mode: 'no-cors',
             method: 'POST',
             headers: {'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')
@@ -25,11 +23,9 @@ export const createAPI = async (apiURL, body) => {
 } 
 
 export const readAPI = async (apiURL) => {
-    console.log("ServerURL", SERVER_URL, " + ", "IsLocal",IS_LOCAL)
 
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`,{
-            mode: 'no-cors',
             headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')
@@ -46,11 +42,9 @@ export const readAPI = async (apiURL) => {
 }
 
 export const updateAPI = async (apiURL, body) => {
-    console.log("ServerURL", SERVER_URL, " + ", "IsLocal",IS_LOCAL)
 
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`, {
-            mode: 'no-cors',
             method: 'PATCH',
             headers: {'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')
@@ -69,11 +63,9 @@ export const updateAPI = async (apiURL, body) => {
 
 
 export const deleteAPI = async (apiURL) => {
-    console.log("ServerURL", SERVER_URL, " + ", "IsLocal",IS_LOCAL)
 
     try {
         const req = await fetch(`${IS_LOCAL ? "" : SERVER_URL }${apiURL}`,{
-            mode: 'no-cors',
             method: 'DELETE',
             headers: {
             'Content-Type': 'application/json',
