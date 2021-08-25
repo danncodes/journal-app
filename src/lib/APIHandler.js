@@ -6,6 +6,7 @@ export const createAPI = async (apiURL, body) => {
             body: JSON.stringify(body)
             })
         console.log(req)
+        console.log(process.env.API_BASE_URL)
         if(req.ok) {
             return req
         }
