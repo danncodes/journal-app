@@ -53,7 +53,7 @@ export default {
     methods: {
         async fetchPosts(){
             try{
-                const res = await readAPI(`api/users/entries`)
+                const res = await readAPI(`/api/users/entries`)
 
                 if(res.ok){
                     const data = await res.json()
