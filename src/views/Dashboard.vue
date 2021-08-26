@@ -65,7 +65,7 @@ export default {
             }
             catch (err){
                 console.log(err)
-                window.location.href = "/notfound";
+                // window.location.href = "/notfound";
             }
         }
     }
