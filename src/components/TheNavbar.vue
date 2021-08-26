@@ -11,7 +11,7 @@
 </header>
 <transition name="slidenav">
     <nav v-if="showNav" class="md:w-64 w-16 h-screen bg-indigo-600 rounded pt-20 flex flex-col justify-between items-center fixed left-0 z-10 shadow">
-        <section class="flex flex-col text-gray-200 my-4 md:w-full md:px-4">
+        <section class="flex flex-col items-center text-gray-200 my-4 md:w-full md:px-4">
             <a href="/dashboard" :class="{'border-l-4 px-2 border-white border-opacity-80 text-white' : activePage.dashboard}" class="text-2xl hover:text-white transition duration-300 ease-in-out my-4 md:flex md:w-full md:justify-between md:items-center">
                 <p class="text-base hidden md:block">Dashboard</p>
                 <i class='bx bxs-dashboard' ></i>
@@ -31,7 +31,7 @@
 
         </section>
 
-        <section class="flex flex-col mb-28 md:w-full md:px-4 text-gray-200">
+        <section class="flex flex-col mb-44 md:w-full md:px-4 text-gray-200">
 
             <a href="/" class="text-2xl hover:text-white transition duration-300 ease-in-out my-4 md:flex md:w-full md:justify-between md:items-center" @click="logout">
                 <p class="text-base hidden md:block">Logout</p>
