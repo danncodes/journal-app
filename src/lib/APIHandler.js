@@ -32,6 +32,7 @@ export const readAPI = async (apiURL) => {
             },
         })
         if(req.ok) {
+            console.log("req", req)
             return req
         }
     }

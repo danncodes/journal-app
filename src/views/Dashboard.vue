@@ -54,6 +54,7 @@ export default {
         async fetchPosts(){
             try{
                 const res = await readAPI(`/api/users/${this.userID}/entries`)
+                console.log("RES", res)
                 if(res.ok){
                     const data = await res.json()
                     this.allEntries = data
