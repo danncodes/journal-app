@@ -6,7 +6,7 @@
   </div>
 
   <!-- Before Signup -->
-  <form v-if="!userRegistered" class="m-4 w-10/12 md:w-8/12 lg:w-5/12 xl:w-4/12" @submit.prevent="submitForm">
+  <form v-if="!userRegistered" class="m-4 max-w-lg w-full" @submit.prevent="submitForm">
 
   <h1 class="mb-8 font-medium text-3xl text-indigo-600 lg:text-white absolute top-8 left-8">Signup</h1>
   <img src="../assets/loginmob.svg" alt="" class="absolute top-2 right-2 h-48 opacity-20 sm:opacity-100">
@@ -14,18 +14,11 @@
   <TheInputField label="Username" type="text" placeholder="JohnDoe91" class="md:mx-2"/>
   <p class="text-xs text-center text-red-600" v-if="usernameTaken">Sorry, Username Already Taken</p>
 
-  <div class="md:flex md:justify-between" ref="passwordsContainer">
-    <TheInputField label="Password" type="password" class="md:w-6/12 md:mx-2" />
-    <TheInputField label="Confirm Password" type="password" class="md:w-6/12 md:mx-2" />
+  <div class="" ref="passwordsContainer">
+    <TheInputField label="Password" type="password" class="" />
+    <TheInputField label="Confirm Password" type="password" class="" />
   </div>
   <p class="text-xs text-center text-red-600" v-if="!passwordMatch">Passwords Don't Match</p>
-
-  <div class="md:flex md:justify-between">
-    <TheInputField label="Firstname" type="text" placeholder="John" class="md:w-6/12 md:mx-2"/>
-    <TheInputField label="Lastname" type="text" placeholder="Doe" class="md:w-6/12 md:mx-2"/>
-  </div>
-
-  <TheInputField label="Phone" type="tel" placeholder="07912312310" class="md:mx-2"/>
 
   <div class="w-full md:flex md:justify-center">
     <TheButton class="w-full mt-8 md:max-w-sm md:mx-2" btnText="Register"/>
@@ -84,15 +77,6 @@ export default {
     confirmPassword(){
       return this.$store.state.confirmPassword
     },
-    firstname(){
-      return this.$store.state.firstname
-    },
-    lastname(){
-      return this.$store.state.lastname
-    },
-    phone(){
-      return this.$store.state.phone
-    },
     userID(){
       return this.$store.state.userID
     }
@@ -110,8 +94,7 @@ export default {
       this.passwordMatch = true
 
       try{
-         const res = await createAPI("/api/users", {username: this.username, password: this.password, firstname: this.firstname,
-           lastname: this.lastname, phone: this.phone})
+         const res = await createAPI("/api/users", {username: this.username, password: this.password})
           
           if(res.ok){
             this.userRegistered = true

@@ -8,7 +8,7 @@
   <img src="../assets/lock.svg" alt="" class="absolute top-2 right-2 h-48">
   <h1 class="mb-8 font-medium text-3xl text-indigo-600 lg:text-white absolute top-8 left-8">Login</h1>
 
-  <form class="m-4 w-10/12 md:w-8/12 lg:w-5/12 xl:w-4/12" @submit.prevent="submitForm" ref="form">
+  <form class="m-4 max-w-lg w-full" @submit.prevent="submitForm" ref="form">
 
   <p class="text-xs text-center text-red-600" v-if="loginError">Incorrect Username or Password</p>
 
